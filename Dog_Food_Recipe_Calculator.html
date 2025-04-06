@@ -1,0 +1,53 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Dog Food Recipe Calculator</title>
+  <style>
+    body { font-family: Arial, sans-serif; margin: 20px; background: #f7f7f7; }
+    h1 { color: #333; }
+    table { width: 100%; max-width: 600px; background: white; border-collapse: collapse; margin-top: 20px; }
+    th, td { padding: 10px; border: 1px solid #ccc; text-align: center; }
+    input { width: 100%; padding: 5px; text-align: center; }
+  </style>
+</head>
+<body>
+  <h1>Dog Food Recipe Calculator</h1>
+  <label for="weight">Dog Weight (lbs):</label>
+  <input type="number" id="weight" min="10" max="200" value="50">
+  <br><br>
+  <label for="activity">Activity Level (1-10):</label>
+  <input type="number" id="activity" min="1" max="10" value="5">
+  <table>
+    <thead>
+      <tr><th>Ingredient</th><th>Amount</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>Protein (lbs)</td><td id="protein">0</td></tr>
+      <tr><td>Carbs (cups)</td><td id="carbs">0</td></tr>
+      <tr><td>Veggies (cups)</td><td id="veggies">0</td></tr>
+      <tr><td>Fats (tbsp)</td><td id="fats">0</td></tr>
+      <tr><td>Liquid (cups)</td><td id="liquid">0</td></tr>
+    </tbody>
+  </table>
+  <script>
+    const base = { protein: 2.0, carbs: 2.0, veggies: 2.0, fats: 2.0, liquid: 2.0 };
+    function calculate() {
+      const weight = parseFloat(document.getElementById('weight').value);
+      const activity = parseFloat(document.getElementById('activity').value);
+      const weightFactor = weight / 50;
+      const activityFactor = 0.75 + (activity / 10);
+      const multiplier = weightFactor * activityFactor;
+      document.getElementById('protein').innerText = (base.protein * multiplier).toFixed(2);
+      document.getElementById('carbs').innerText = (base.carbs * multiplier).toFixed(2);
+      document.getElementById('veggies').innerText = (base.veggies * multiplier).toFixed(2);
+      document.getElementById('fats').innerText = (base.fats * multiplier).toFixed(2);
+      document.getElementById('liquid').innerText = (base.liquid * multiplier).toFixed(2);
+    }
+    document.getElementById('weight').addEventListener('input', calculate);
+    document.getElementById('activity').addEventListener('input', calculate);
+    window.onload = calculate;
+  </script>
+</body>
+</html>
